@@ -67,3 +67,5 @@ function showToast(message) {
         toast.remove();
     }, TOASTDURATION + 500);
 }
+
+toggleEditable();
