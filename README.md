@@ -22,4 +22,4 @@ If the script is already loaded, there will no longer be function definitions
 ## Future updates and known bugs
 
 - The function definitions might not be useful, will convert the code to plain sequence instead of defining functions and then calling them
-- Will fix CSS formating, right now it includes spaces and tabs too, this only takes space
+- Will fix CSS formatting, right now it includes spaces and tabs too, this only takes space
