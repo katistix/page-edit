@@ -8,20 +8,17 @@ A bookmarklet that enables you to change the contents of any web page.
 
 ## How to use the bookmarklet?
 
-You just need to create a new bookmark and insert inside the URL field this code:
+You just need to create a new bookmark and insert this code inside the URL field:
 
-```javascript
-javascript: void (document.body.appendChild(
-  document.createElement("script")
-).src = "https://cdn.statically.io/gh/katistix/page-edit/main/script.js");
+```js
+javascript:(()=>{if("undefined"!=typeof KATISTIX_PAGE_EDITABLE)console.log("Script already added."),toggleEditable();else{let e="\n .toast {\n height: 50px;\n width: 100%;\n position: fixed;\n left: 0;\n right: 0;\n bottom: -50px;\n background: #000;\n color: #fff;\n text-align: center;\n font-size: 20px;\n line-height: 50px;\n z-index: 9999;\n opacity: 0.8;\n transition: all 0.5s ease;\n }\n .show {\n bottom: 0px;\n }\n ";const t=2e3;function loadCss(){let t=document.createElement("style");t.innerHTML=e,document.head.appendChild(t)}function toggleEditable(){loadCss();let e="true"==document.body.contentEditable?"false":"true";console.log(e),document.body.contentEditable=e,showToast("true"==e?"Editable mode enabled.":"Editable mode disabled.")}function showToast(e){let n=document.createElement("div");n.classList.add("toast"),n.innerHTML=e,document.body.appendChild(n),setTimeout((function(){n.classList.add("show")}),100),setTimeout((function(){n.classList.remove("show")}),t),setTimeout((function(){n.remove()}),t+500)}toggleEditable()}})();
 ```
 
-This loads a the `script.js` file from this repo and calls the `toggleEditable` function.
+This code defines the necessary functions and calls the `toggleEditable()` function.
 
 If the script is already loaded, there will no longer be function definitions
 
 ## Future updates and known bugs
 
-- The script is still technically loaded each time you press the bookmarklet, this needs a fix to improve efficiency.
-- Will move all the code inside the bookmarklet code, no external code loading, to avoid CORS errors
-- Will add a badge that's allways visible when in edit mode
+- The function definitions might not be useful, will convert tha code to plain sequence instead of defining functions and then calling them
+- Will add a badge that's always visible when in edit mode
