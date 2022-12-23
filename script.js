@@ -1,7 +1,6 @@
 // Test if the script was already added.
 if (typeof KATISTIX_PAGE_EDITABLE !== 'undefined') {
     // If it was, then toggle the editable state.
-    console.log("Script already added.");
     toggleEditable();
 }
 else {
@@ -29,6 +28,20 @@ else {
     .show {
         bottom: 0px;
     }
+    .editableWarning {
+        padding: 5px 10px;
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        height: 30px;
+        background: #f7c034;
+        color: #000;
+        text-align: center;
+        line-height: 30px;
+        z-index: 9999;
+        border-radius: 5px;
+        cursor: pointer;
+    }
     `;
 
     const TOASTDURATION = 2000;
@@ -43,11 +56,14 @@ else {
         // This line loads the CSS into the page.
         loadCss();
 
+        // This line toggles the warning.
+        toggleWarning();
+
 
         // This line determines whether the body is editable or not,
         // and sets the variable editableState to the opposite value.
         let editableState = "true" == document.body.contentEditable ? "false" : "true";
-        console.log(editableState);
+        // console.log(editableState);
         document.body.contentEditable = editableState;
 
         if (editableState == "true") {
@@ -56,6 +72,26 @@ else {
             showToast("Editable mode disabled.");
         }
     }
+
+    // This function adds a warning to the bottom of the page.
+    function toggleWarning() {
+        let warningExists = document.body.getElementsByClassName("editableWarning").length > 0;
+        // If the warning is already on the page, then remove it.
+        if (warningExists) {
+            let warning = document.body.getElementsByClassName("editableWarning")[0];
+            warning.remove();
+        }
+        // If the warning is not on the page, then add it.
+        else {
+            let warning = document.createElement("div");
+            warning.classList.add("editableWarning");
+            warning.onclick = toggleEditable;
+            warning.innerHTML = "Editable mode is enabled. Click to disable.";
+            document.body.appendChild(warning);
+        }
+    }
+
+
 
     // A function that displays a nice toast message on the page for x seconds.
     function showToast(message) {
